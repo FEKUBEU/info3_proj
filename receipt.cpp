@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 void Receipt::add_Store(int choice , string store_names[])
 {
     receipt_store_name = store_names[choice];

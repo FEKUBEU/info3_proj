@@ -46,23 +46,23 @@ using namespace std;
                         ,Article("Usb Stick"            ,9  ,3.80  ,7,0)
                         ,Article("Batterien"            ,10 ,1.40  ,7,0)
                         };
-    //datum
+
 
 
 int main()
 {
 
-    // fsk freigabe
-    // klassen person/verkäufer
 
-    // receipt ausgabe formatieren + datum,person,rabatte,zahlvariante fehlt
+    // abfrage für nicht integer(fehleranfälligkeit beheben)
+
+    // receipt ausgabe formatieren beleg
 
 
     //test
     //Cout<<"test"<<endl;
     //Article test_article("cool",22,0.50);
     Receipt receipt1;
-    ShopCart cart1("felix",1);
+    ShopCart cart1("felix",1,0);
     Buyer test;
     date datum;
     datum.init();
@@ -76,17 +76,18 @@ int main()
     //test.Display_buyer();
 
     //Laden auswählen
-    //choice_store = Menu_Stores(store_name);
-    //receipt1.add_Store(choice_store,store_name);
-    //receipt1.Display_receipt_store_name();
+    choice_store = Menu_Stores(store_name);
+    receipt1.add_Store(choice_store,store_name);
+    receipt1.Display_receipt_store_name();
 
     //Produktwahl + auflisten
     // wenn 0 eingegeben programme bricht ab
 
-    int zurkasse = 1;
+    int einkaufen = 1;
+    int warenkorb = 1;
     int choice_article;
     int anz;
-    while(zurkasse)
+    while( einkaufen )
     {
 
         if(choice_store == 0) //welcher store
@@ -96,9 +97,21 @@ int main()
             if( ( choice_article = Menu_Article(Produkte_super) ) == 10)
             {
                 //abfrage ob er wirklich zur kasse will
-                if( yes_no("Wollen sie zur kasse?") )
+                if( yes_no("Wollen sie zum Warenkorb?") )
                 {
-                    zurkasse = 0;
+
+                    while(warenkorb)
+                    {
+                        cart1.Display_cart_article();
+                        cart1.give_SummOfPrice();
+
+                        if( yes_no_nodelete("wollen sie weiter zur Kasse?") )
+                        {
+                            warenkorb = 0;
+                            einkaufen = 0;
+                        }
+
+                    }
                 }
 
             }
@@ -106,18 +119,30 @@ int main()
             {
                 cout<<choice_article<<endl<<endl;
 
-                if( (choice_article >10)|| (choice_article <0) )
+                if( (choice_article > max_articles )|| (choice_article <0) )
                 {
 
-                    if( yes_no("Wollen sie zur kasse?") )
-                    {
-                        zurkasse = 0;
-                    }
+                        if( yes_no("Wollen sie zum Warenkorb?") )
+                        {
+
+                            while(warenkorb)
+                            {
+                                cart1.Display_cart_article();
+                                cart1.give_SummOfPrice();
+
+                                if( yes_no_nodelete("wollen sie weiter zur Kasse?") )
+                                {
+                                    warenkorb = 0;
+                                    einkaufen = 0;
+                                }
+
+                            }
+                        }
                 }
                 else
                 {
                     anz = how_many(Produkte_super[choice_article]);
-                    for(int i=0;i<anz;i++)
+                    for(int i=0 ; i<anz ; i++)
                     {
                         cart1.Add_ArticleToCart(Produkte_super[choice_article]);
                     }
@@ -134,24 +159,24 @@ int main()
                 //abfrage ob er wirklich zur kasse will
                 if( yes_no("Wollen sie zur kasse?") )
                 {
-                    zurkasse = 0;
+                    einkaufen = 0;
                 }
 
             }
             else
             {
-                if(choice_article <10 || choice_article <0)
+                if(choice_article > max_articles || choice_article <0)
                 {
 
                     if( yes_no("Wollen sie zur kasse?") )
                     {
-                        zurkasse = 0;
+                        einkaufen = 0;
                     }
                 }
                 else
                 {
                     anz = how_many(Produkte_electro[choice_article]);
-                    for(int i=0;i<anz;i++)
+                    for(int i=0 ; i<anz ; i++)
                     {
                         cart1.Add_ArticleToCart(Produkte_electro[choice_article]);
                     }
@@ -163,15 +188,17 @@ int main()
     }
 
 
+    //Zur Kasse(beleg)
 
-    //Zur Kasse
-
+    //datum
     datum.print();
 
     receipt1.Display_receipt( receipt1.add_article_fromCart(cart1.articles , cart1.anz_article) );
 
     receipt1.Display_receipt_store_name();
-    cart1.Display_cart_article();
+
+    //cart1.Display_cart_article();
+
     cout<<"Zu zahlende summe: "<<cart1.give_SummOfPrice()<<" euro"<<endl<<endl;
 
 

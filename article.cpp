@@ -27,3 +27,18 @@ double Article::give_price()
 {
     return price;
 }
+
+int Article::give_fsk()
+{
+    int fsk_yes = 0;
+
+        if(fsk > 0)
+        {
+            if( fsk > fsk_yes)
+            {
+                fsk_yes = fsk;
+            }
+        }
+
+    return fsk_yes;
+}

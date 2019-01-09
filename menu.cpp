@@ -20,7 +20,7 @@ int Menu_Article(Article Produkte[])
             Produkte[i].Display_article_name();
         }
 
-        cout<<(i+1)<<": zur Kasse"<<endl<<endl;
+        cout<<(i+1)<<": Warenkorb"<<endl<<endl;
 
         cin>>eingabe;
         return (eingabe-1);
@@ -37,6 +37,7 @@ int Menu_Stores(string Stores[])
 
     int eingabe;
     cin>>eingabe;
+
     return eingabe;
 }
 
@@ -63,6 +64,32 @@ int yes_no(string Question)
         return 0;
     }
 }
+
+int yes_no_nodelete(string Question)
+{
+
+
+    cout<<Question<<endl<<endl;
+
+    cout<<"1: Ja"<<endl<<"2: Nein"<<endl;
+
+    char answer;
+
+    cin>>answer;
+
+    if(answer == 'j' || answer == 'J')
+    {
+        system("CLS");
+        return 1;
+    }
+    else
+    {
+        system("CLS");
+        return 0;
+    }
+}
+
+
 
 int how_many(Article the_article)
 {
