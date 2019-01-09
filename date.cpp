@@ -1,10 +1,6 @@
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "date.hpp"
-
-using namespace std;
 
 // ---------------------------------------------------
 // datum.cpp

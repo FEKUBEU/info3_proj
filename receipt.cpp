@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 void Receipt::add_Store(int choice , string store_names[])
 {
     receipt_store_name = store_names[choice];
@@ -15,7 +14,7 @@ void Receipt::add_Store(int choice , string store_names[])
 
 void Receipt::Display_receipt_store_name()
 {
-    cout<<"laden: "<<receipt_store_name<<endl<<endl;
+    cout<<"Store: "<<receipt_store_name<<endl<<endl;
 }
 
 int Receipt::add_article_fromCart(Article articles[] , int anz_articles)

@@ -5,9 +5,9 @@ using namespace std;
 
 void Article::display_article()
 {
-    cout<<"Artikel name: "   <<article_name   <<endl
-        <<"Artikel nummer: " <<article_nr     <<endl
-        <<"preis: "          <<price<<" euro" <<endl<<endl;
+    cout<<"| Artikelname: "   <<article_name   <<endl
+        <<"| Artikelnummer: " <<article_nr     <<endl
+        <<"| Preis: "          <<price<<" €" <<endl<<endl;
 }
 
 void Article::Copy_Artikel(Article ToCopy_Article)
@@ -26,19 +26,4 @@ void Article::Display_article_name()
 double Article::give_price()
 {
     return price;
-}
-
-int Article::give_fsk()
-{
-    int fsk_yes = 0;
-
-        if(fsk > 0)
-        {
-            if( fsk > fsk_yes)
-            {
-                fsk_yes = fsk;
-            }
-        }
-
-    return fsk_yes;
 }
