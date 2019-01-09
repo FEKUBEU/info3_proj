@@ -3,54 +3,18 @@
 
 using namespace std;
 
-
 void ShopCart::Display_cart(){
 
-    cout<<"Warenkorb:"<<kunden_nr<<endl<<"Kunden name:"<<kunden_name<<endl<<endl;
+    cout<<"Warenkorb:"<<kunden_nr<<endl<<"Kundenname:"<<kunden_name<<endl<<endl;
 }
 
 int ShopCart::Add_ArticleToCart(Article ToAdd_article)
 {
-    if(anz_article < max_articles_cart)
+    if(anz_article < max_articles)
     {
-
-        int fsk;
-        if( fsk = ToAdd_article.give_fsk() )
-        {
-            if(fsk > 1)
-            {
-                if( yes_no("Sind sie ueber 18?") )
-                {
-                    (articles[anz_article]).Copy_Artikel(ToAdd_article);
-                    anz_article++;
-                    return 0;
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-            else
-            {
-                if( yes_no("Sind sie ueber 16?") )
-                {
-                    (articles[anz_article]).Copy_Artikel(ToAdd_article);
-                    anz_article++;
-                    return 0;
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-        }
-        else
-        {
-            (articles[anz_article]).Copy_Artikel(ToAdd_article);
-            anz_article++;
-            return 0;
-        }
-
+        (articles[anz_article]).Copy_Artikel(ToAdd_article);
+        anz_article++;
+        return 0;
     }
     else
     {
@@ -83,7 +47,23 @@ double ShopCart::give_SummOfPrice()
         sum += ( articles[i].price + steuer );
     }
 
-    return sum ;
+    return sum;
 }
 
+int ShopCart::get_article(int choice, Article Productlist[])
+{
+    cout<<"Auswahl"<<choice<<endl;//test
 
+    if(choice <= max_articles)
+    {
+        return choice;
+    }
+    else
+    {
+        Add_ArticleToCart(Productlist[choice]);
+        Productlist[choice].Display_article_name();
+        return choice;
+    }
+
+
+}

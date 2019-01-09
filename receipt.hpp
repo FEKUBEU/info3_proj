@@ -7,7 +7,7 @@
 #include "article.hpp"
 #include "menu.hpp"
 
-const int max_articles_receipt = 100;
+
 const int max_stores=2;
 
 class Receipt
@@ -17,7 +17,7 @@ class Receipt
 
     std::string receipt_store_name;
 
-     Article articles_receipt[max_articles_receipt];
+     Article articles_receipt[max_articles];
 
      Receipt()
      {

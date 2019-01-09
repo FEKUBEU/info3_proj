@@ -37,8 +37,6 @@ class Article
     //gibt price aus
     double give_price();
 
-    int give_fsk();
-
      //Methoden//
 };
 

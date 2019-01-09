@@ -26,8 +26,8 @@ using namespace std;
                         ,Article("Dose"     ,4  ,0.80,19,0)
                         ,Article("Erdinger" ,5  ,1.20,19,0)
                         ,Article("Frucht"   ,6  ,0.20,19,0)
-                        ,Article("bier"     ,7  ,1.20,19,1)
-                        ,Article("wodka"    ,8  ,0.90,19,2)
+                        ,Article("Bier"     ,7  ,1.20,19,1)
+                        ,Article("Wodka"    ,8  ,0.90,19,2)
                         ,Article("Ingwer"   ,9  ,0.80,19,0)
                         ,Article("Jodsalz"  ,10 ,1.40,19,0)
                         };
@@ -46,49 +46,62 @@ using namespace std;
                         ,Article("Usb Stick"            ,9  ,3.80  ,7,0)
                         ,Article("Batterien"            ,10 ,1.40  ,7,0)
                         };
-
+    //datum
 
 
 int main()
 {
 
+    // fsk freigabe
+    // klassen person/verkäufer
 
-    // abfrage für nicht integer(fehleranfälligkeit beheben)
-
-    // receipt ausgabe formatieren beleg
+    // receipt ausgabe formatieren + datum,person,rabatte,zahlvariante fehlt
 
 
     //test
     //Cout<<"test"<<endl;
     //Article test_article("cool",22,0.50);
     Receipt receipt1;
-    ShopCart cart1("felix",1,0);
+    ShopCart cart1("felix", 1);
     Buyer test;
     date datum;
     datum.init();
 
     //Menü erstellen//
     ////////////////////////////////////////////
-    int choice_store= 0;
+    int choice_store;
 
     //anmelden
-    //test.log_in();
-    //test.Display_buyer();
+    test.log_in();
+    test.Display_buyer();
 
     //Laden auswählen
-    choice_store = Menu_Stores(store_name);
+    do{
+        choice_store = Menu_Stores(store_name);
+        //cout<<choice_store<<endl;
+
+    } while(choice_store != 0 && choice_store != 1);
+
     receipt1.add_Store(choice_store,store_name);
     receipt1.Display_receipt_store_name();
 
     //Produktwahl + auflisten
     // wenn 0 eingegeben programme bricht ab
 
-    int einkaufen = 1;
-    int warenkorb = 1;
+    int zurkasse = 1;
     int choice_article;
     int anz;
-    while( einkaufen )
+
+    system("CLS");
+    std::system("clear");
+
+
+    while(zurkasse)
     {
+        system("CLS");
+        std::system("clear");
+
+        
 
         if(choice_store == 0) //welcher store
         {
@@ -97,21 +110,9 @@ int main()
             if( ( choice_article = Menu_Article(Produkte_super) ) == 10)
             {
                 //abfrage ob er wirklich zur kasse will
-                if( yes_no("Wollen sie zum Warenkorb?") )
+                if( yes_no("Wollen Sie zur Kasse? (j/n)") )
                 {
-
-                    while(warenkorb)
-                    {
-                        cart1.Display_cart_article();
-                        cart1.give_SummOfPrice();
-
-                        if( yes_no_nodelete("wollen sie weiter zur Kasse?") )
-                        {
-                            warenkorb = 0;
-                            einkaufen = 0;
-                        }
-
-                    }
+                    zurkasse = 0;
                 }
 
             }
@@ -119,30 +120,18 @@ int main()
             {
                 cout<<choice_article<<endl<<endl;
 
-                if( (choice_article > max_articles )|| (choice_article <0) )
+                if( (choice_article > 10)|| (choice_article < 0) )
                 {
 
-                        if( yes_no("Wollen sie zum Warenkorb?") )
-                        {
-
-                            while(warenkorb)
-                            {
-                                cart1.Display_cart_article();
-                                cart1.give_SummOfPrice();
-
-                                if( yes_no_nodelete("wollen sie weiter zur Kasse?") )
-                                {
-                                    warenkorb = 0;
-                                    einkaufen = 0;
-                                }
-
-                            }
-                        }
+                    if( yes_no("Wollen Sie zur Kasse? (j/n)") )
+                    {
+                        zurkasse = 0;
+                    }
                 }
                 else
                 {
                     anz = how_many(Produkte_super[choice_article]);
-                    for(int i=0 ; i<anz ; i++)
+                    for(int i=0; i < anz; i++)
                     {
                         cart1.Add_ArticleToCart(Produkte_super[choice_article]);
                     }
@@ -150,33 +139,33 @@ int main()
 
             }
         }
-        else
+        else if(choice_store == 1)
         {
             //electromarkt
 
             if( ( choice_article = Menu_Article(Produkte_electro) ) == 10)
             {
                 //abfrage ob er wirklich zur kasse will
-                if( yes_no("Wollen sie zur kasse?") )
+                if( yes_no("Wollen Sie zur Kasse? (j/n)") )
                 {
-                    einkaufen = 0;
+                    zurkasse = 0;
                 }
 
             }
             else
             {
-                if(choice_article > max_articles || choice_article <0)
+                if(choice_article < 10 || choice_article < 0)
                 {
 
-                    if( yes_no("Wollen sie zur kasse?") )
+                    if( yes_no("Wollen Sie zur Kasse? (j/n)") )
                     {
-                        einkaufen = 0;
+                        zurkasse = 0;
                     }
                 }
                 else
                 {
                     anz = how_many(Produkte_electro[choice_article]);
-                    for(int i=0 ; i<anz ; i++)
+                    for(int i=0; i < anz; i++)
                     {
                         cart1.Add_ArticleToCart(Produkte_electro[choice_article]);
                     }
@@ -184,22 +173,22 @@ int main()
 
             }
         }
+        else
+            cout<<"Bitte wahlen Sie einen Store!"<<endl;
 
     }
 
 
-    //Zur Kasse(beleg)
 
-    //datum
+    //Zur Kasse
+
     datum.print();
 
     receipt1.Display_receipt( receipt1.add_article_fromCart(cart1.articles , cart1.anz_article) );
 
     receipt1.Display_receipt_store_name();
-
     //cart1.Display_cart_article();
-
-    cout<<"Zu zahlende summe: "<<cart1.give_SummOfPrice()<<" euro"<<endl<<endl;
+    cout<<"Summe: "<<cart1.give_SummOfPrice()<<" €"<<endl<<endl;
 
 
 
