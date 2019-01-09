@@ -12,10 +12,10 @@ class ShopCart {
 
     public:
 
-    int anz_article = 0;                  //Anzahl der artikel
+    int anz_article;                  //Anzahl der artikel
 
-    std::string kunden_name = "x";    //Kundeninformationen
-    int kunden_nr = 0;
+    std::string kunden_name;    //Kundeninformationen
+    int kunden_nr;
 
 
     Article articles[max_articles];

@@ -12,6 +12,8 @@ int Menu_Article(Article Produkte[])
     int i;
     system("CLS");
 
+    cout<<"waehlen sie ihre produkte aus"<<endl<<endl;
+
         for( i = 0; i < max_articles; i++)
         {
             cout<<(i+1)<<" : ";

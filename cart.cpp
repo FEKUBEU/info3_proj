@@ -34,11 +34,17 @@ void ShopCart::Display_cart_article()
 
 double ShopCart::give_SummOfPrice()
 {
-    double sum=0;
+    double sum = 0;
+    double steuer = 0;
 
     for(int i=0; i < anz_article ;i++)
     {
-        sum += articles[i].price;
+        steuer = ( ( articles[i].price ) / 100 ) * articles[i].mwst;
+
+        //cout<<articles[i].mwst<<endl<<endl;
+        //cout<<steuer<<endl<<endl;
+
+        sum += ( articles[i].price + steuer );
     }
 
     return sum;
@@ -55,7 +61,6 @@ int ShopCart::get_article(int choice, Article Productlist[])
     else
     {
         Add_ArticleToCart(Productlist[choice]);
-        cout<<"Artikel hinzugefuegt: ";
         Productlist[choice].Display_article_name();
         return choice;
     }

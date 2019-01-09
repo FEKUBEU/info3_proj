@@ -1,11 +1,13 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "cart.hpp"
 #include "article.hpp"
 #include "menu.hpp"
 #include "receipt.hpp"
 #include "buyer.hpp"
+#include "date.hpp"
 
 using namespace std;
 
@@ -18,40 +20,42 @@ using namespace std;
     //supermarkt
     Article Produkte_super[] =
                         {
-                         Article("Apfel"    ,1  ,0.30)
-                        ,Article("Banane"   ,2  ,0.30)
-                        ,Article("Couscous" ,3  ,1.50)
-                        ,Article("Dose"     ,4  ,0.80)
-                        ,Article("Erdinger" ,5  ,1.20)
-                        ,Article("Frucht"   ,6  ,0.20)
-                        ,Article("Gabel"    ,7  ,1.20)
-                        ,Article("Haribo"   ,8  ,0.90)
-                        ,Article("Ingwer"   ,9  ,0.80)
-                        ,Article("Jodsalz"  ,10 ,1.40)
+                         Article("Apfel"    ,1  ,0.30,19,0)
+                        ,Article("Banane"   ,2  ,0.30,19,0)
+                        ,Article("Couscous" ,3  ,1.50,19,0)
+                        ,Article("Dose"     ,4  ,0.80,19,0)
+                        ,Article("Erdinger" ,5  ,1.20,19,0)
+                        ,Article("Frucht"   ,6  ,0.20,19,0)
+                        ,Article("bier"     ,7  ,1.20,19,1)
+                        ,Article("wodka"    ,8  ,0.90,19,2)
+                        ,Article("Ingwer"   ,9  ,0.80,19,0)
+                        ,Article("Jodsalz"  ,10 ,1.40,19,0)
                         };
 
     //elektromarkt
      Article Produkte_electro[] =
                         {
-                         Article("Usb Kabel"        ,1  ,6.30   )
-                        ,Article("Hdmi Kabel"       ,2  ,6.30   )
-                        ,Article("Dvd Player"       ,3  ,15.50  )
-                        ,Article("Blueray Player"   ,4  ,30.80  )
-                        ,Article("Videospiel"       ,5  ,60.20  )
-                        ,Article("Xbox"             ,6  ,100.20 )
-                        ,Article("Playstation"      ,7  ,100.20 )
-                        ,Article("Album"            ,8  ,10.90  )
-                        ,Article("Usb Stick"        ,9  ,3.80   )
-                        ,Article("Batterien"        ,10 ,1.40   )
+                         Article("Usb Kabel"            ,1  ,6.30  ,7,0)
+                        ,Article("Hdmi Kabel"           ,2  ,6.30  ,7,0)
+                        ,Article("Dvd(ab 18)"           ,3  ,15.50 ,7,2)
+                        ,Article("Blueray Player"       ,4  ,30.80 ,7,0)
+                        ,Article("Videospiel(ab 16)"    ,5  ,60.20 ,7,1)
+                        ,Article("Xbox"                 ,6  ,100.20,7,0)
+                        ,Article("Playstation"          ,7  ,100.20,7,0)
+                        ,Article("Album"                ,8  ,10.90 ,7,0)
+                        ,Article("Usb Stick"            ,9  ,3.80  ,7,0)
+                        ,Article("Batterien"            ,10 ,1.40  ,7,0)
                         };
-
+    //datum
 
 
 int main()
 {
-    // cart_article to receipt
-    // receipt ausgabe formatieren + datum,person,rabatte,zahlvariante fehlt
 
+    // fsk freigabe
+    // klassen person/verkäufer
+
+    // receipt ausgabe formatieren + datum,person,rabatte,zahlvariante fehlt
 
 
     //test
@@ -60,14 +64,16 @@ int main()
     Receipt receipt1;
     ShopCart cart1("felix",1);
     Buyer test;
+    date datum;
+    datum.init();
 
     //Menü erstellen//
     ////////////////////////////////////////////
-    int choice_store;
+    int choice_store= 0;
 
     //anmelden
-    test.log_in();
-    test.Display_buyer();
+    //test.log_in();
+    //test.Display_buyer();
 
     //Laden auswählen
     //choice_store = Menu_Stores(store_name);
@@ -75,15 +81,14 @@ int main()
     //receipt1.Display_receipt_store_name();
 
     //Produktwahl + auflisten
-    //Menu_Article(cart1);
-    /*
+    // wenn 0 eingegeben programme bricht ab
+
     int zurkasse = 1;
     int choice_article;
     int anz;
     while(zurkasse)
     {
 
-        cout<<"waehlen sie ihre produkte aus"<<endl<<endl;
         if(choice_store == 0) //welcher store
         {
             //supermarkt
@@ -99,13 +104,26 @@ int main()
             }
             else
             {
-                anz = how_many(Produkte_super[choice_article]);
-                for(int i=0;i<anz;i++)
-                {
-                    cart1.Add_ArticleToCart(Produkte_super[choice_article]);
-                }
-            }
+                cout<<choice_article<<endl<<endl;
 
+                if( (choice_article >10)|| (choice_article <0) )
+                {
+
+                    if( yes_no("Wollen sie zur kasse?") )
+                    {
+                        zurkasse = 0;
+                    }
+                }
+                else
+                {
+                    anz = how_many(Produkte_super[choice_article]);
+                    for(int i=0;i<anz;i++)
+                    {
+                        cart1.Add_ArticleToCart(Produkte_super[choice_article]);
+                    }
+                }
+
+            }
         }
         else
         {
@@ -122,42 +140,42 @@ int main()
             }
             else
             {
-                anz = how_many(Produkte_electro[choice_article]);
-                for(int i=0;i<anz;i++)
+                if(choice_article <10 || choice_article <0)
                 {
-                    cart1.Add_ArticleToCart(Produkte_electro[choice_article]);
+
+                    if( yes_no("Wollen sie zur kasse?") )
+                    {
+                        zurkasse = 0;
+                    }
                 }
+                else
+                {
+                    anz = how_many(Produkte_electro[choice_article]);
+                    for(int i=0;i<anz;i++)
+                    {
+                        cart1.Add_ArticleToCart(Produkte_electro[choice_article]);
+                    }
+                }
+
             }
         }
 
     }
 
-    */
+
 
     //Zur Kasse
-    //cart1.Display_cart_article();
-    //cout<<"Zu zahlende summe: "<<cart1.give_SummOfPrice()<<" euro"<<endl<<endl;
+
+    datum.print();
+
+    receipt1.Display_receipt( receipt1.add_article_fromCart(cart1.articles , cart1.anz_article) );
+
+    receipt1.Display_receipt_store_name();
+    cart1.Display_cart_article();
+    cout<<"Zu zahlende summe: "<<cart1.give_SummOfPrice()<<" euro"<<endl<<endl;
 
 
-    //Testversion//
-    ///////////////////////////////////////////
 
-    /*
-
-    //erstellen eine warenkorbs mit kunden_name
-    //und kunden_nr
-    ShopCart Cart1("Felix",1);
-
-    //Display_cart zeigt warenkorb an
-    Cart1.Display_cart();
-
-    //ein artikel in den warenkorb
-    Cart1.Add_ArticleToCart(Produkte[0]);
-    Cart1.Add_ArticleToCart(Produkte[1]);
-
-    Cart1.Display_cart_article();
-
-    */
 
     return 0;
 }

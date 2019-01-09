@@ -16,3 +16,26 @@ void Receipt::Display_receipt_store_name()
 {
     cout<<"laden: "<<receipt_store_name<<endl<<endl;
 }
+
+int Receipt::add_article_fromCart(Article articles[] , int anz_articles)
+{
+    int anz=0;
+    for(int i = 0; i < anz_articles ; i++)
+    {
+        articles_receipt[i] = articles[i];
+        anz++;
+    }
+    return anz;
+}
+
+void Receipt::Display_receipt(int anz)
+{
+
+
+    for(int i = 0; i < anz  ; i++ )
+    {
+        cout<<i<<": ";
+        articles_receipt[i].display_article();
+        cout<<endl;
+    }
+}
