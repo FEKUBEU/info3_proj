@@ -1,17 +1,16 @@
+#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "date.hpp"
+
+using namespace std;
 
 // ---------------------------------------------------
 // datum.cpp
 // Implementierung der Methoden der Klasse Datum.
 // ---------------------------------------------------
-
-#include "date.hpp"
-
-#include <iostream>
 #include <ctime>
-using namespace std;
 
 // ---------------------------------------------------
 void date::init(void)  // Aktuelles Datum holen und
