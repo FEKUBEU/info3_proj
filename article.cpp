@@ -5,9 +5,11 @@ using namespace std;
 
 void Article::display_article()
 {
-    cout<<"Artikel name: "   <<article_name   <<endl
-        <<"Artikel nummer: " <<article_nr     <<endl
-        <<"preis: "          <<price<<" euro" <<endl<<endl;
+    cout<<"||||"            <<article_name   <<endl
+        <<"|  Art.-Nr: "    <<article_nr     <<endl
+        <<"|  Anzahl: "     <<anz_inCart     <<endl
+        <<"|||| Preis: "    <<price<<" Euro" <<endl
+        <<"~~~~~~~~~~~"<<endl;
 }
 
 void Article::Copy_Artikel(Article ToCopy_Article)

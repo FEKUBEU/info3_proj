@@ -11,16 +11,17 @@ class Article
 
     std::string article_name;
     int article_nr;
+    int anz_inCart;
     double price;
     int mwst;
     int fsk;    //0-keine freigabe nötig , 1 = fsk 16 , 2 = fsk 18
 
     //konstruktor
     Article()
-    { article_name = "X" ; article_nr = 0 ; price = 0.0 ; mwst = 0 ; fsk = 0 ;}
+    { article_name = "X" ; article_nr = 0; anz_inCart = 0; price = 0.0 ; mwst = 0 ; fsk = 0 ;}
 
-    Article(const std::string& k_name , int k_nr , double k_price , int k_mwst , int k_fsk)
-            {article_name = k_name; article_nr = k_nr ; price = k_price; mwst = k_mwst; fsk = k_fsk;}
+    Article(const std::string& k_name , int k_nr , double k_price , int k_mwst , int k_fsk , int k_anz_inCart )
+            {article_name = k_name; article_nr = k_nr ; price = k_price; mwst = k_mwst; fsk = k_fsk; anz_inCart = k_anz_inCart;}
 
 
      //Methoden//

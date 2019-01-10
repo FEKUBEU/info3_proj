@@ -6,7 +6,7 @@ using namespace std;
 
 void ShopCart::Display_cart(){
 
-    cout<<"Warenkorb:"<<kunden_nr<<endl<<"Kunden name:"<<kunden_name<<endl<<endl;
+    cout<<"Warenkorb:"<<kunden_nr<<endl<<"Kundenname:"<<kunden_name<<endl<<endl;
 }
 
 int ShopCart::Add_ArticleToCart(Article ToAdd_article)
@@ -19,7 +19,7 @@ int ShopCart::Add_ArticleToCart(Article ToAdd_article)
         {
             if(fsk > 1)
             {
-                if( yes_no("Sind sie ueber 18?") )
+                if( yes_no("Sind Sie ueber 18?") )
                 {
                     (articles[anz_article]).Copy_Artikel(ToAdd_article);
                     anz_article++;
@@ -32,7 +32,7 @@ int ShopCart::Add_ArticleToCart(Article ToAdd_article)
             }
             else
             {
-                if( yes_no("Sind sie ueber 16?") )
+                if( yes_no("Sind Sie ueber 16?") )
                 {
                     (articles[anz_article]).Copy_Artikel(ToAdd_article);
                     anz_article++;
@@ -60,11 +60,19 @@ int ShopCart::Add_ArticleToCart(Article ToAdd_article)
 
 void ShopCart::Display_cart_article()
 {
-
+    cout<<">>> WARENKORB <<<"<<endl;
     for(int i=0;i<anz_article;i++)
     {
-        cout<<"Artikel "<<i<<":"<<endl;
-        (articles[i]).display_article();
+        if( articles[i].anz_inCart > 1 )              //wenn der artikel öfters im warenkorb wird ausgabe übersprungen nach dem ersten mal
+        {
+            articles[i].display_article();
+            i += (articles[i].anz_inCart) ;
+        }
+        else
+        {
+            articles[i].display_article();
+        }
+
     }
 }
 
@@ -84,6 +92,50 @@ double ShopCart::give_SummOfPrice()
     }
 
     return sum ;
+}
+
+void ShopCart::AddMany_ArticleToCart(Article ToAdd_article , int anz )
+{
+    int i=anz_article;
+    int anz_loop = anz_article + anz;
+    int fsk;
+
+        if(  fsk = ToAdd_article.give_fsk()  )  //wenn fsk >0 dann abfrage erforderlich nach erster abfrage nicht mehr erforderlich
+        {
+            if(fsk > 1)
+            {
+                if( yes_no("sind sie ueber 18 ?") )
+                {
+                    for(i;i<anz_loop;i++)
+                    {
+                        articles[i].Copy_Artikel(ToAdd_article);
+                        anz_article ++;
+                        articles[i].anz_inCart += anz;
+                    }
+                }
+            }
+            else
+            {
+                if( yes_no("sind sie ueber 16 ?") )
+                {
+                    for(i;i<anz_loop;i++)
+                    {
+                        articles[i].Copy_Artikel(ToAdd_article);
+                        anz_article ++;
+                        articles[i].anz_inCart += anz;
+                    }
+                }
+            }
+        }
+        else // fsk bedarf keiner abfrage
+        {
+            for(i;i<anz_loop;i++)
+            {
+                articles[i].Copy_Artikel(ToAdd_article);
+                anz_article ++;
+                articles[i].anz_inCart += anz;
+            }
+        }
 }
 
 
