@@ -24,31 +24,31 @@ using namespace std;
     //supermarkt
     Article Produkte_super[] =
                         {
-                         Article("Apfel"    ,1  ,0.30,19,0)
-                        ,Article("Banane"   ,2  ,0.30,19,0)
-                        ,Article("Couscous" ,3  ,1.50,19,0)
-                        ,Article("Dose"     ,4  ,0.80,19,0)
-                        ,Article("Erdinger" ,5  ,1.20,19,0)
-                        ,Article("Frucht"   ,6  ,0.20,19,0)
-                        ,Article("Bier"     ,7  ,1.20,19,1)
-                        ,Article("wodka"    ,8  ,0.90,19,2)
-                        ,Article("Ingwer"   ,9  ,0.80,19,0)
-                        ,Article("Jodsalz"  ,10 ,1.40,19,0)
+                         Article("Apfel"    ,1  ,0.30,19,0,0)
+                        ,Article("Banane"   ,2  ,0.30,19,0,0)
+                        ,Article("Couscous" ,3  ,1.50,19,0,0)
+                        ,Article("Dose"     ,4  ,0.80,19,0,0)
+                        ,Article("Erdinger" ,5  ,1.20,19,0,0)
+                        ,Article("Frucht"   ,6  ,0.20,19,0,0)
+                        ,Article("Bier"     ,7  ,1.20,19,1,0)
+                        ,Article("wodka"    ,8  ,0.90,19,2,0)
+                        ,Article("Ingwer"   ,9  ,0.80,19,0,0)
+                        ,Article("Jodsalz"  ,10 ,1.40,19,0,0)
                         };
 
     //elektromarkt
      Article Produkte_electro[] =
                         {
-                         Article("Usb Kabel"            ,1  ,6.30  ,7,0)
-                        ,Article("Hdmi Kabel"           ,2  ,6.30  ,7,0)
-                        ,Article("Dvd(ab 18)"           ,3  ,15.50 ,7,2)
-                        ,Article("Blueray Player"       ,4  ,30.80 ,7,0)
-                        ,Article("Videospiel(ab 16)"    ,5  ,60.20 ,7,1)
-                        ,Article("Xbox"                 ,6  ,100.20,7,0)
-                        ,Article("Playstation"          ,7  ,100.20,7,0)
-                        ,Article("Album"                ,8  ,10.90 ,7,0)
-                        ,Article("Usb Stick"            ,9  ,3.80  ,7,0)
-                        ,Article("Batterien"            ,10 ,1.40  ,7,0)
+                         Article("Usb Kabel"            ,1  ,6.30  ,7,0,0)
+                        ,Article("Hdmi Kabel"           ,2  ,6.30  ,7,0,0)
+                        ,Article("Dvd(ab 18)"           ,3  ,15.50 ,7,2,0)
+                        ,Article("Blueray Player"       ,4  ,30.80 ,7,0,0)
+                        ,Article("Videospiel(ab 16)"    ,5  ,60.20 ,7,1,0)
+                        ,Article("Xbox"                 ,6  ,100.20,7,0,0)
+                        ,Article("Playstation"          ,7  ,100.20,7,0,0)
+                        ,Article("Album"                ,8  ,10.90 ,7,0,0)
+                        ,Article("Usb Stick"            ,9  ,3.80  ,7,0,0)
+                        ,Article("Batterien"            ,10 ,1.40  ,7,0,0)
                         };
 
 
@@ -144,7 +144,7 @@ int main()
                                 }
                                 else
                                     warenkorb = 0;
-                                
+
 
                             }
                         }
@@ -152,12 +152,18 @@ int main()
                 else
                 {
                     anz = how_many(Produkte_super[choice_article]);
-                    for(int i=0 ; i<anz ; i++)
-                    {
 
-                        // wenn 5 artikel mit fsk gekauft wird 5 mal abgefragt!
+                    if(anz > 1)
+                    {
+                        cart1.AddMany_ArticleToCart(Produkte_super[choice_article],anz);
+                    }
+                    else
+                    {
                         cart1.Add_ArticleToCart(Produkte_super[choice_article]);
                     }
+
+
+
                 }
 
             }
@@ -182,8 +188,10 @@ int main()
                                     einkaufen = 0;
                                 }
                                 else
-                                    warenkorb = 0;
-                                
+                                {
+                                   warenkorb = 0;
+                                }
+
 
                             }
                         }
@@ -195,7 +203,7 @@ int main()
                 {
 
                    if( yes_no_nodelete("Wollen Sie zum Warenkorb? (j/n)") )
-                        {
+                   {
 
                             while(warenkorb)
                             {
@@ -208,16 +216,23 @@ int main()
                                     einkaufen = 0;
                                 }
                                 else
+                                {
                                     warenkorb = 0;
-                                
+                                }
+
 
                             }
-                        }
+                    }
                 }
                 else
                 {
                     anz = how_many(Produkte_electro[choice_article]);
-                    for(int i=0 ; i<anz ; i++)
+
+                    if(anz > 1)
+                    {
+                        cart1.AddMany_ArticleToCart(Produkte_electro[choice_article],anz);
+                    }
+                    else
                     {
                         cart1.Add_ArticleToCart(Produkte_electro[choice_article]);
                     }
@@ -249,8 +264,8 @@ int main()
 
     //cart1.Display_cart_article();
 
-    
+
     cout<<"_________________________________________________________________"<<endl;
     cout<<"VIELEN DANK FÜR IHREN BESUCH!"<<endl<<endl<<endl<<endl;
- 
+
 }

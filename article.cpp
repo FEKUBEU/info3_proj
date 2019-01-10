@@ -7,7 +7,7 @@ void Article::display_article()
 {
     cout<<"||||"            <<article_name   <<endl
         <<"|  Art.-Nr: "    <<article_nr     <<endl
-        <<"|  Anzahl: "     <<article_anz   <<endl
+        <<"|  Anzahl: "     <<anz_inCart     <<endl
         <<"|||| Preis: "    <<price<<" Euro" <<endl
         <<"~~~~~~~~~~~"<<endl;
 }

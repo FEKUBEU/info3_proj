@@ -38,8 +38,13 @@ class ShopCart {
     //ein artikel in den warenkorb hinzufügen
     int Add_ArticleToCart(Article);
 
+    //mehrere artikel in den warenkorb hinzufügen
+    void AddMany_ArticleToCart(Article,int);
+
     //Summe der preise
     double give_SummOfPrice();
+
+
 
     //Methoden//
 };
