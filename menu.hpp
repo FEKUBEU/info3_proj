@@ -9,6 +9,7 @@
 int Menu_Article(Article[]);
 int Menu_Stores(std::string[]);
 int yes_no(std::string);
+int yes_no_nodelete(std::string);
 int how_many(Article);
 
 #endif
