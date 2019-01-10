@@ -11,6 +11,10 @@
 
 using namespace std;
 
+
+/////////////////////// ONLINE SHOP ////////////////////////////////////////////////////////
+
+
     //Stores
 
     std::string store_name[] = {"Supermarkt","Elektromarkt"};
@@ -26,7 +30,7 @@ using namespace std;
                         ,Article("Dose"     ,4  ,0.80,19,0)
                         ,Article("Erdinger" ,5  ,1.20,19,0)
                         ,Article("Frucht"   ,6  ,0.20,19,0)
-                        ,Article("bier"     ,7  ,1.20,19,1)
+                        ,Article("Bier"     ,7  ,1.20,19,1)
                         ,Article("wodka"    ,8  ,0.90,19,2)
                         ,Article("Ingwer"   ,9  ,0.80,19,0)
                         ,Article("Jodsalz"  ,10 ,1.40,19,0)
@@ -69,11 +73,11 @@ int main()
 
     //Menü erstellen//
     ////////////////////////////////////////////
-    int choice_store= 0;
+    int choice_store;
 
     //anmelden
-    //test.log_in();
-    //test.Display_buyer();
+    test.log_in();
+    test.Display_buyer();
 
     //Laden auswählen
     choice_store = Menu_Stores(store_name);
@@ -84,20 +88,21 @@ int main()
     // wenn 0 eingegeben programme bricht ab
 
     int einkaufen = 1;
-    int warenkorb = 1;
+    //int warenkorb = 1;
     int choice_article;
     int anz;
     while( einkaufen )
     {
+        int warenkorb = 1;
 
         if(choice_store == 0) //welcher store
         {
             //supermarkt
-
+            //cout<<"TESTER";
             if( ( choice_article = Menu_Article(Produkte_super) ) == 10)
             {
                 //abfrage ob er wirklich zur kasse will
-                if( yes_no("Wollen sie zum Warenkorb?") )
+                if( yes_no_nodelete("Wollen Sie zum Warenkorb? (j/n)") )
                 {
 
                     while(warenkorb)
@@ -105,11 +110,13 @@ int main()
                         cart1.Display_cart_article();
                         cart1.give_SummOfPrice();
 
-                        if( yes_no_nodelete("wollen sie weiter zur Kasse?") )
+                        if( yes_no_nodelete("Wollen Sie weiter zur Kasse? (j/n)") )
                         {
                             warenkorb = 0;
                             einkaufen = 0;
                         }
+                        else
+                            warenkorb = 0;
 
                     }
                 }
@@ -122,7 +129,7 @@ int main()
                 if( (choice_article > max_articles )|| (choice_article <0) )
                 {
 
-                        if( yes_no("Wollen sie zum Warenkorb?") )
+                        if( yes_no_nodelete("Wollen Sie zum Warenkorb? (j/n)") )
                         {
 
                             while(warenkorb)
@@ -130,11 +137,14 @@ int main()
                                 cart1.Display_cart_article();
                                 cart1.give_SummOfPrice();
 
-                                if( yes_no_nodelete("wollen sie weiter zur Kasse?") )
+                                if( yes_no_nodelete("Wollen Sie weiter zur Kasse? (j/n)") )
                                 {
                                     warenkorb = 0;
                                     einkaufen = 0;
                                 }
+                                else
+                                    warenkorb = 0;
+                                
 
                             }
                         }
@@ -144,23 +154,39 @@ int main()
                     anz = how_many(Produkte_super[choice_article]);
                     for(int i=0 ; i<anz ; i++)
                     {
+
+                        // wenn 5 artikel mit fsk gekauft wird 5 mal abgefragt!
                         cart1.Add_ArticleToCart(Produkte_super[choice_article]);
                     }
                 }
 
             }
         }
-        else
+        else if(choice_store == 1)
         {
             //electromarkt
 
             if( ( choice_article = Menu_Article(Produkte_electro) ) == 10)
             {
-                //abfrage ob er wirklich zur kasse will
-                if( yes_no("Wollen sie zur kasse?") )
-                {
-                    einkaufen = 0;
-                }
+                if( yes_no_nodelete("Wollen Sie zum Warenkorb? (j/n)") )
+                        {
+
+                            while(warenkorb)
+                            {
+                                cart1.Display_cart_article();
+                                cart1.give_SummOfPrice();
+
+                                if( yes_no_nodelete("Wollen Sie weiter zur Kasse? (j/n)") )
+                                {
+                                    warenkorb = 0;
+                                    einkaufen = 0;
+                                }
+                                else
+                                    warenkorb = 0;
+                                
+
+                            }
+                        }
 
             }
             else
@@ -168,10 +194,25 @@ int main()
                 if(choice_article > max_articles || choice_article <0)
                 {
 
-                    if( yes_no("Wollen sie zur kasse?") )
-                    {
-                        einkaufen = 0;
-                    }
+                   if( yes_no_nodelete("Wollen Sie zum Warenkorb? (j/n)") )
+                        {
+
+                            while(warenkorb)
+                            {
+                                cart1.Display_cart_article();
+                                cart1.give_SummOfPrice();
+
+                                if( yes_no_nodelete("Wollen Sie weiter zur Kasse? (j/n)") )
+                                {
+                                    warenkorb = 0;
+                                    einkaufen = 0;
+                                }
+                                else
+                                    warenkorb = 0;
+                                
+
+                            }
+                        }
                 }
                 else
                 {
@@ -184,25 +225,32 @@ int main()
 
             }
         }
+        else
+            cout<<"Unexpected ERR0R"<<endl;
+
 
     }
 
 
     //Zur Kasse(beleg)
 
+    cout<<"_________________________________________________________________"<<endl;
+
     //datum
     datum.print();
 
     receipt1.Display_receipt( receipt1.add_article_fromCart(cart1.articles , cart1.anz_article) );
 
+
+    cout<<"___________"<<endl<<"___________"<<endl<<"Summe: "<<cart1.give_SummOfPrice()<<" euro"<<endl<<endl;
+
+
     receipt1.Display_receipt_store_name();
 
     //cart1.Display_cart_article();
 
-    cout<<"Zu zahlende summe: "<<cart1.give_SummOfPrice()<<" euro"<<endl<<endl;
-
-
-
-
-    return 0;
+    
+    cout<<"_________________________________________________________________"<<endl;
+    cout<<"VIELEN DANK FÜR IHREN BESUCH!"<<endl<<endl<<endl<<endl;
+ 
 }

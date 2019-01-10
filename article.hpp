@@ -10,6 +10,7 @@ class Article
     public:
 
     std::string article_name;
+    int article_anz;
     int article_nr;
     double price;
     int mwst;
@@ -17,7 +18,7 @@ class Article
 
     //konstruktor
     Article()
-    { article_name = "X" ; article_nr = 0 ; price = 0.0 ; mwst = 0 ; fsk = 0 ;}
+    { article_name = "X" ; article_nr = 0; article_anz = 0 ; price = 0.0 ; mwst = 0 ; fsk = 0 ;}
 
     Article(const std::string& k_name , int k_nr , double k_price , int k_mwst , int k_fsk)
             {article_name = k_name; article_nr = k_nr ; price = k_price; mwst = k_mwst; fsk = k_fsk;}
